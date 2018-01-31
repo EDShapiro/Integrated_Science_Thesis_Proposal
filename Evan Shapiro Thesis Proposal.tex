@@ -1,0 +1,206 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{graphicx}
+\graphicspath{ {c:/Users/EvanD/OneDrive/Pictures/}{ C:/Users/EvanD/OneDrive/Documents/Fluid Dynamics/Homework/Homework1/}}
+\title{MCEN 5021 - Fluid Mechanics HW 1}
+\author{Evan Shapiro \\ Master's of Integrated Science, University of Colorado Denver}
+\begin{document}
+\maketitle
+\par
+Problem 1\\
+A gas at $20\degree C$ may be rarefied if it contains less than $10^{12}$ molecules per $mm^3$. If Avogadro’s
+number is $6.023*10^{23}$ molecules per mole, what air pressure does this represent?\\
+Solution\\
+Use the ideal gas law to solve - $PV = NRT$, or, $P = \frac{N}{V}RT$ where N is the number of moles. 
+$$\frac{N}{V} = \frac{10^{12}moles}{6.203*10^{23}mm^3}$$
+$$ = 1.66*10^-12 moles/mm^3 = 1.66*10^{-3} moles/m^3$$
+$$P = 1.66*10^{-3}*293.15*8.314 \frac{N}{m^2}$$
+$$P = 4.04\frac{N}{m^2}$$
+
+$$
+$$
+Problem 2\\
+$$
+$$
+The following is the script used to plot the natural log of the Knudsen number as a function of height, as well as the graph associated with it.\\
+Matlab Script - Problem 2
+\begin{lstlisting}[language = Matlab]
+%Calculating Knudsen number as a function of altitude - z = 0 to z = 100km.
+%Length of spaceship = L
+%z0 = initial altitude
+%zmax = maximum altitude 
+%T0 = Ground Temperature 
+%g = gravity 
+%M = Molar mass of dry air
+%Ru = Universal gas constant 
+%rho = density of air
+%rho0 = density at z=0
+%Kn = Knudsen number
+%lambda = Mean free path
+%l = temperature lapse rate.
+L = 5;
+z0 = 0; zmax = 100*10^3; zrange = linspace(z0, zmax);
+T0 = 288.15;
+g = 9.8;
+M = 0.02896;
+Ru = 8.31447;
+rho0 = 1.225;
+l = 2.5*10^-3;
+alpha = 2*10^-7;
+exp1 = (g*M/(Ru*l)-1);
+%%
+%Plotting Knudsen number as a function of height.
+rho = rho0*(1 - l*zrange./T0).^exp1;
+lambda = alpha./rho;
+Kn = lambda/L;
+logKn = log(Kn);
+plot(zrange, logKn,'-')
+xlabel('Height [m]')
+ylabel('Logarithmic Scale of Knudsen Number')
+title('Logarithm of Knudsen Number VS Height of Spaceship')
+%%
+%Identifying the continuum, transitional, and rareified gas boundaries.
+%Since we are plotting the logarithm of the Knudsen number we must find the
+%y-values corresonding to the logarithms of the continuum, transitional,
+%and rareified gas boundaries.
+Kncont = 0.125;
+cont = log(Kncont);
+zcont = find(logKn <= log(0.125));
+zcont = max(zcont);
+txt1 = '* ln(Kn)=ln(0.125)';
+txt1 = [txt1 newline 'Continuum-Transitional'];
+txt1 = [txt1 newline 'Boundary'];
+text(zrange(zcont),cont,txt1,'FontSize', 7);
+Kntrans = 1;
+trans = log(Kntrans);
+Knrare = 8;
+rare = log(Knrare);
+zrare = find(logKn <= log(8));
+zrare = max(zrare);
+txt2 = '* ln(Kn)=ln(8)';
+txt2 = [txt2 newline 'Transitional-Rareified'];
+txt2 = [txt2 newline 'Boundary'];
+text(zrange(zrare),rare,txt2,'FontSize', 7);
+\end{lstlisting}
+$$
+$$
+
+\includegraphics[scale = 0.5]{Knudsen.png}
+\\
+Assuming that gravity is constant in this problem is valid, as according the Universal Law for Gravitation, $g(R) = \frac{GM}{R^2}$ the percent difference between the gravitational field at the surface of the earth and the maximum altitude is:
+$$
+\frac{\frac{GM_{E}}{R_{E}^2} - \frac{GM_E}{(R_E +zmax)^2}}{\frac{GM_{E}}{R_E^2}}
+=.0306
+$$ 
+or 3.06 \%, which is negligible.\\
+$$
+$$
+Problem 3\\
+A formula for estimating the mean free path of a perfect gas is
+$$
+\lambda = 1.26 \frac{\mu}{\rho\sqrt{RT}} =  1.26 \frac{\mu\sqrt{RT}}{p}$$ 
+What are the dimensions of the constant 1.26?\\
+$$
+$$
+Solution\\
+The dimensions of $\mu$, the dynamic viscosity, are $\frac{kg}{ms}$, the dimensions of $\rho$ are $\frac{kg}{m^3}$, the dimensions of $RT$ are$\frac{J}{mol} = kg*m^2/s^2$. So the dimensions of $\frac{\mu}{\rho\sqrt{RT}}$ are
+$$
+\frac{m}{\sqrt{kg}},
+$$
+which means the dimensions of 1.26 must be $\sqrt{kg}$
+$$
+$$
+Problem 4\\
+A plane unsteady viscous flow is given in polar coordinates by
+$$
+v_{r} = 0, \quad v_{\theta} = \frac{C}{r}[1-exp(-\frac{r^2}{4vis. t})],
+$$
+where C is a constant and $vis.$ is the viscosity. Compute the vorticity, $\omega_{z}(r,t) = \frac{1}{r}\frac{\partial(v_{theta}r)}{\partial r}$ and plot a series of representative velocity and vorticity profiles at different times. By comparing
+the results with those for the steady viscous flow $v_θ = C/r$, comment on the effect of the viscosity in the unsteady flow. Does this make sense given what you know about viscosity? Why or why not.
+Solution\\
+The velocity is increasing in the radial direction due to the Gaussian function, but also decreasing in the radial direction due to the dependence on $\frac{1}{r}$, which drops of slower than the Gaussian function.
+Determine the vorticity
+\[
+w_z = \frac{1}{r}\frac{\partial(r\frac{C}{r}[1-exp(-\frac{r^2}{4vis. t})])}{\partial r}\]
+\[
+w_z = \frac{1}{r}\frac{C r}{2vis. t}exp(-\frac{r^2}{4vis. t})\]
+\[
+w_z = \frac{C}{2vis. t}exp(-\frac{r^2}{4vis. t}),
+\]
+so the vorticity decays in a an exponential, radially symetric fashion away from the origin. Due to the time dependence being in the numerator of the Gaussian term in the unsteady velocity, we should expect that the velocity in the theta direction goes away as time approaches infinity. Additionally, since the vorticity equation contains a time term in the denominator of its coefficient we can expect the vorticity to go to zero as time approaches infinity.\\
+\par
+To plot these the unsteady flow velocity and vorticity profile, as well as the steady flow velocity profile I converted the functions into Cartesian coordinates and used the quiver function in Matlab. The vorticity of the steady flow velocity is 0, so this was not plotted. The $4vis. t$ term was made into a variable $vc$ and and the unsteady velocity and vorticity profiles were plotted for values $vc= {0.01,0.1,1,10}$. The steady flow velocity is constant in time, so ony one profile was plotted. Please see the attached graphs and script.\\
+From what I understand about viscosity the graphs for the unsteady fluid flow seem to make sense. The momentum is spreading out over time, although eventuall the velocity goes to zero. The vorticity appears to reach a steady state, but when I look at the values for vorticity in MatLab the vorticity values are going steadily to zero, the plot does not reflect this though.
+\includegraphics[scale = 0.5]{VCUS001.png}\\
+\includegraphics[scale = 0.5]{VCUS01.png}\\
+\includegraphics[scale = 0.5]{VCUS1.png}\\
+\includegraphics[scale = 0.5]{VCUS10.png}\\
+
+ \includegraphics[scale = 0.5]{VORTUS001.png}\\
+ \includegraphics[scale = 0.5]{VORTUS01.png}\\
+ \includegraphics[scale = 0.5]{VORTUS1.png}\\
+ \includegraphics[scale = 0.5]{VORTUS10.png}\\
+ \includegraphics[scale = 0.5]{SV.png}\\
+MatLab Script - Problem 4
+\begin{lstlisting}[language = Matlab]
+%Creating a vorticity and velocity profile at different time steps for both
+%steady and unsteady viscous flows.
+
+%I converted the velocity profile in the theta direction into its cartesian
+%coordinates, and then used the quiver function to produce vectors fields
+%at different time points for both the velocity and vorticity profiles.
+%Unsteady flow - velocity profile
+%vc = 4vt from problem
+%C = 1
+vc =0.1;
+x = -1:0.1:1; y =-1:0.1:1;
+[x,y] = meshgrid(x,y);
+u = (1-exp(-(x.^2+y.^2)./vc)).*(-y./(x.^2+y.^2));
+v = (1-exp(-(x.^2+y.^2)./vc)).*(x./(x.^2+y.^2));
+figure
+quiver(x,y,u,v)
+xlabel('x position')
+ylabel('y position')
+title('Unsteady Velocity Profile for 4vt=0.1 and C = 1')
+%%
+% Unsteady flow-vorticity profile
+vc = 100;
+x = -1:0.1:1; y =-1:0.1:1;
+[x,y] = meshgrid(x,y);
+u = (exp(-(x.^2+y.^2)/vc)).*(-2*y./(x.^2+y.^2).^(1/2)/vc);
+v = (exp(-(x.^2+y.^2)/vc)).*(2*x./(x.^2+y.^2).^(1/2)/vc);
+figure
+quiver(x,y,u,v)
+xlabel('x position')
+ylabel('y position')
+title('Vorticity profile for 4vt=100 and C = 1')
+%%
+%Velocity profile steady flow
+x = -1:0.1:1; y =-1:0.1:1;
+[x,y] = meshgrid(x,y);
+u = -y./(x.^2+y.^2);
+v = x./(x.^2+y.^2);
+figure
+quiver(x,y,u,v)
+xlabel('x position')
+ylabel('y position')
+title('Steady Velocity Profile - All Time')
+%%
+%Steady flow vorticity profile
+x = -1:0.1:1; y =-1:0.1:1;
+[x,y] = meshgrid(x,y);
+u = y./(x.^2+y.^2);
+v = -x./(x.^2+y.^2);
+figure
+quiver(x,y,u,v)
+xlabel('x position')
+ylabel('y position')
+title('Steady Velocity Profile - All Time')
+\end{lstlisting}
+
+
+\end{document}
