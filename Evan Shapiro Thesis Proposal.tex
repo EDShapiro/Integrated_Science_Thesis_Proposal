@@ -5,6 +5,8 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{graphicx}
+\usepackage[margin=1.0in]{geometry}
+\linespread{2.0}
 \graphicspath{ {c:/Users/EvanD/OneDrive/Pictures/}}
 \title{Integrated Science Thesis Proposal}
 \author{Evan Shapiro \\ Master's of Integrated Science, University of Colorado Denver}
@@ -15,18 +17,21 @@
 \subsection{Magnetically Confined Fusion}
 \subsubsection{Motivation for Studying Plasma Fusion}
 
-The motivation for this project is tied in to the overall goals of the Partnership Center for High-Fidelity Boundary Plasma Simulation, which aims to understand the boundary physics of a magnetically confined plasma in a nuclear fusion reactor using high-fidelity simulations. The boundary region in a fusion reactor is defined as “extending 10\% of the outer-minor radius in from the magnetic separatix, through the open field line scrape off layer, out to the material walls.” The separatix is the point where the magnetic field lines cross, which in the case of the Tokamak is at the bottom of of the toroid, while the scrape off layer (SOL) is defined as the plasma region that is characterized by open field lines, and is outside of the separatrix. The SOL absorbs most of the plasma exhaust and transports it along field lines to the divertor plates. The divertor plates are responsible for abosorbing heat and ashe produced by the plasma, minimizing contamination of the plasma, and protecting thermal and neutronic loads.\\
+The motivation for this project is tied in to the overall goals of the Partnership Center for High-Fidelity Boundary Plasma Simulation, which is working to understand the boundary physics of a magnetically confined plasma in a nuclear fusion reactor using high-fidelity simulations. \cite{PPPL_P:2}\\
+
+For clarity, the boundary region in a fusion reactor is defined as “extending 10\% of the outer-minor radius in from the magnetic separatix, through the open field line scrape off layer, out to the material walls.” The separatix is the point where the magnetic field lines cross, which in the case of the Tokamak is at the bottom of of the toroid, while the scrape off layer (SOL) is defined as the plasma region that is characterized by open field lines, and is outside of the separatrix. The SOL absorbs most of the plasma exhaust and transports it along field lines to the divertor plates. The divertor plates are responsible for absorbing heat and ashe produced by the plasma, minimizing contamination of the plasma, and protecting thermal and neutronic loads.\\
 
 CHECK CITATION – INSERT MAIN MAGNETIC FIELD LINE FIGURE HERE\\
 
-AS the stability in the plasma boundary is critical to Tokamak operation, the physics in the plasma boundary region must be better understood before a fully functional fusion reactor can built. An example of a critical issue related to the plasma boundary physics is outlined below.\\
+The stability in the plasma boundary is critical to Tokamak operation, and thus the physics in the plasma boundary region must be understood before a fully functional fusion reactor can built. To elucidate the importance of understanding plasma boundary physics, an example of a critical issue related to stable operation of a fusion reactor is outlined below.\\
 
-If a magnetically confined plasma reaches a heating threshold value in which the, the plasma transitions from a low-confinement mode (L-Mode) to a high-confinement mode (H-Mode). Once the L-H transition occurs, a steep pedestal in the plasma density develops in the plasma boundary region, as can be seen in figure 2.2. This transition brings a reduction in the radially directed electric field, as well as a reduction in the turbulence intensity, which in turn reduces heat transport, raising the temperature of the plasma core. The increased heating leads to a 2-3 fold increase in plasma power production, making the H-mode is the desired operating mode for future fusion reactors.\\
+Once a magnetically confined plasma reaches a heating threshold value the plasma transitions from a low-confinement mode (L-Mode) to a high-confinement mode (H-Mode). After L-H transition occurs, a steep pedestal in the plasma density develops in the plasma boundary region, as can be seen in figure 2.2. This transition brings a reduction in the radially directed electric field, as well as a reduction in the turbulence intensity, which in turn reduces heat transport, This reduction in turbulent transport leads to an increased heating in the ion core of the plasma by "a factor that is proportional to the temperature at the top of the pedestal." \cite{PPPL_P:2} The increased heating leads to a 2-3 fold increase in plasma power production, making the H-mode is the desired operating mode for future fusion reactors.\\
 
-Operating in H-mode requires that the density pedestal be maintained. However, the steep density gradient “acts as a source of free energy for the magnetohydrodynamic plasma edge localized modes (ELM),” in which the pedestal repeatedly “crashes”, yielding bursts of plasma towards the divertor plates. A proposed solution to this problem is to use stochastic magnetic fields to stabilize steep gradient in the boundary region, and thus control the edge localized modes.\\
+Operating in H-mode requires a stable pedestal. However, the steep density gradient “acts as a source of free energy for the magnetohydrodynamic plasma edge localized modes (ELM),” \cite{PPPL_P:2}  in which the pedestal repeatedly “crashes”, yielding bursts of plasma towards the divertor plates. A proposed solution to this problem is to use stochastic magnetic fields to stabilize steep gradient in the boundary region, and thus control the edge localized modes.\\
 
-The transition from low to high confinement mode, and the stability of the edge density pedestal are not fully understood as the physics in the boundary region are non-equilibrium, and non-Maxwellian. Simulating this region requires
-Since the high confinement mode is the desired operational mode of the ITER Tokamak fusion reactor, one of the main research goals of the Partnership is to develop a better picture of the physics that occur in this region, and the conditions required to maintain stability of the plasma in H-Mode operation.\\
+The Partnership seeks to understand  the L-H transition, pedestal structure, and  the requirements for ELM stability and control.  The plasma behavior in the boundary region is non-Maxwellian, and has non-equillibrium characteristics, requiring a first principles, 5-D gyrokinetic model, that simulates multiscale edge Tokamak plasma physics. Simulations include: The code used  (XGC), which is a particle in cell (PIC) code, requiring extreme high performance computing (HPC) to run a full plasma simulation.
+
+This brings us to the motivation of this thesis proposal. Modeling and simulation work is incredibly imporant in plasma physics due to the inherently difficult problem of collecting data from inside a nuclear reactor.\cite{Smith_UQ:3} The running of these simulations is computationally expensive, with some simulations requiring a day of HPC resources to complete a single simulation run. One method for reducing the complexity of the simulation is to construct a surrogate model that captures the primary behavior of the modeled process, and is sufficiently efficient for model validation and uncertainty propagation.  \cite{Smith_UQ:3}.
 
  \cite{PPPL_P:2}
 The boundary physics of a magnetically confined plasma within a reactor are tied to variety of parameters. The parameter of interest for this study is the ion diffusivity 
@@ -40,4 +45,3 @@ This will be followed by a an overview of the diffusion model that will be explo
 \bibliographystyle{ieeetr}
 \bibliography{Bibli}
 \end{document}
-
